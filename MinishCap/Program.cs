@@ -17,6 +17,14 @@ public static class Program {
 
         _window = Window.Create(options);
 
+        _window.Load += OnLoad;
+
         _window.Run();
+    }
+
+    private static void OnLoad() {
+        Console.WriteLine("Window loaded");
+
+        MinishCap.Main.AgbMain();
     }
 }
