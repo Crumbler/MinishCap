@@ -33,6 +33,8 @@ public static class Main {
 
         Globals.Unk02000010.Field0x4 = 0xC1;
 
+        Fade.InitFade();
+
         SetTask(Tasks.Title);
     }
 

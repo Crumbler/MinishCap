@@ -38,3 +38,29 @@ public unsafe struct SaveHeader {
         }
     }
 }
+
+public struct FadeControl {
+    /// <summary>
+    ///     Currently fading
+    /// </summary>
+    public bool Active;
+
+    public byte Unused1, Color, Unused2;
+    /// <summary>
+    ///     Fade palette mask.
+    ///     LSB = foreground, MSB = background.
+    /// </summary>
+    public uint Mask;
+    public ushort Type, Speed, Progress;
+    /// <summary>
+    ///     Fade progress to sustain
+    /// </summary>
+    public ushort Sustain;
+    public short IrisSize, IrisX, IrisY;
+    public ushort WinInsideCount, WinOutsideCount;
+}
+
+public struct Struct020354C0 {
+    public byte Unk0, Unk1;
+    public ushort Unk2;
+}
