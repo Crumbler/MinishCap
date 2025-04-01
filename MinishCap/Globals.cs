@@ -12,4 +12,8 @@ public static class Globals {
     public static FadeControl FadeControl;
 
     public static Struct020354C0[] Unk020354C0 = new Struct020354C0[32];
+
+    public static uint UsedPalettes;
+
+    public static Structures.Message Message;
 }

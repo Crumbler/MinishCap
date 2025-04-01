@@ -27,6 +27,7 @@ public static class Main {
     }
 
     public static void AgbLoad() {
+        InitOverlays();
         Save.InitSaveData();
         InitSaveHeader();
         Save.Flush();
@@ -34,15 +35,22 @@ public static class Main {
         Globals.Unk02000010.Field0x4 = 0xC1;
 
         Fade.InitFade();
+        Fade.SetBrightness(1);
+        Message.MessageInitialize();
 
         SetTask(Tasks.Title);
     }
 
     public static void AgbUpdate() {
+        Globals.Main.Ticks++;
         HandleCurrentTask();
     }
 
     public static void AgbRender() {
+
+    }
+
+    private static void InitOverlays() {
 
     }
 

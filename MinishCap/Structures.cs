@@ -9,7 +9,7 @@ public struct StructMain {
     public TaskSubStates CurrentTaskSubState;
     public byte MainField0x5;
     public byte MainField0x7;
-    public int Ticks;
+    public ushort Ticks;
 }
 
 public unsafe struct Struct02000010 {
@@ -22,19 +22,21 @@ public unsafe struct Struct02000010 {
 }
 
 public unsafe struct SaveHeader {
+    private const int NameCount = 6;
+
     public int Signature;
     public byte SaveFileId;
     public byte MsgSpeed;
     public byte Brightness;
     public Languages Language;
-    public fixed byte Name[6];
+    public fixed byte Name[NameCount];
     public byte Invalid;
     public byte Initialized;
 
     public Span<byte> NameSpan {
         get {
             var ptr = Unsafe.AsPointer(ref Name[0]);
-            return new Span<byte>(ptr, 6);
+            return new Span<byte>(ptr, NameCount);
         }
     }
 }
@@ -46,12 +48,14 @@ public struct FadeControl {
     public bool Active;
 
     public byte Unused1, Color, Unused2;
+
     /// <summary>
     ///     Fade palette mask.
     ///     LSB = foreground, MSB = background.
     /// </summary>
     public uint Mask;
     public ushort Type, Speed, Progress;
+
     /// <summary>
     ///     Fade progress to sustain
     /// </summary>
@@ -63,4 +67,16 @@ public struct FadeControl {
 public struct Struct020354C0 {
     public byte Unk0, Unk1;
     public ushort Unk2;
+}
+
+public struct Message {
+    public byte State, Unk, TextSpeed, Unk3,
+        TextWindowWidth, TextWindowHeight,
+        TextWindowPosX, TextWindowPosY;
+
+    public ushort TextIndex, Unk2;
+
+    public uint Flags, Rupees;
+
+    public uint Field0x14, Field0x18, Field0x1C;
 }
