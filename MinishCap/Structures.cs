@@ -1,4 +1,5 @@
 ﻿using MinishCap.Enums;
+using System.Runtime.CompilerServices;
 
 namespace MinishCap.Structures;
 
@@ -18,4 +19,22 @@ public unsafe struct Struct02000010 {
     public byte Field0x6;
     public byte Field0x7;
     public fixed byte Padding[24];
+}
+
+public unsafe struct SaveHeader {
+    public int Signature;
+    public byte SaveFileId;
+    public byte MsgSpeed;
+    public byte Brightness;
+    public Languages Language;
+    public fixed byte Name[6];
+    public byte Invalid;
+    public byte Initialized;
+
+    public Span<byte> NameSpan {
+        get {
+            var ptr = Unsafe.AsPointer(ref Name[0]);
+            return new Span<byte>(ptr, 6);
+        }
+    }
 }

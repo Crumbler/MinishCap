@@ -1,6 +1,5 @@
 ﻿using Silk.NET.Maths;
 using Silk.NET.Windowing;
-using System.Diagnostics;
 
 namespace MinishCap; 
 
@@ -9,9 +8,6 @@ public static class Program {
 
     public static void Main() {
         Console.WriteLine("Starting up");
-
-        Console.WriteLine(WindowOptions.Default.FramesPerSecond);
-        Console.WriteLine(WindowOptions.Default.UpdatesPerSecond);
 
         var options = WindowOptions.Default with {
             Size = new Vector2D<int>(800, 600),
@@ -26,11 +22,10 @@ public static class Program {
         _window.Update += OnUpdate;
         _window.Render += OnRender;
 
-        _window.Run(() => { });
+        _window.Run();
     }
 
     private static void OnRender(double dTime) {
-        Console.WriteLine(dTime * 1000);
         MinishCap.Main.AgbRender();
     }
 
