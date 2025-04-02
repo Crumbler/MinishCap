@@ -3,7 +3,7 @@
 namespace MinishCap.Helpers;
 
 public static class StructHelper {
-    public static Span<byte> AsByteSpan<T> (ref T data)
+    public static Span<byte> AsByteSpan<T>(ref T data)
         where T : struct {
         Span<byte> span;
 

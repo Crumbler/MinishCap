@@ -36,8 +36,9 @@ public static class Main {
 
         Fade.InitFade();
         Fade.SetBrightness(1);
-        Message.MessageInitialize();
-
+        Messages.MessageInitialize();
+        Globals.Rand = 0x1234567;
+        Globals.Main = new();
         SetTask(Tasks.Title);
     }
 
