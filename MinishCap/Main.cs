@@ -52,7 +52,7 @@ public static class Main {
     }
 
     private static void InitOverlays() {
-
+        Common.DisplayReset(false);
     }
 
     private static void InitSaveHeader() {

@@ -1,16 +1,41 @@
 ﻿using MinishCap.Enums;
 using MinishCap.Helpers;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace MinishCap.Structures;
 
 public struct StructMain {
+    public byte InterruptFlag, SleepStatus;
     public Tasks CurrentTask;
     public TaskStates CurrentTaskState;
     public TaskSubStates CurrentTaskSubState;
     public byte MainField0x5;
+    public byte MuteAudio;
     public byte MainField0x7;
+
+    /// <summary>
+    ///     Number of frames to pause
+    /// </summary>
+    public byte PauseFrames;
+
+    /// <summary>
+    ///     Numbers of pauses to make
+    /// </summary>
+    public byte PauseCount;
+
+    /// <summary>
+    ///     Number of frames to play between each pause
+    /// </summary>
+    public byte PauseInterval;
+
+    /// <summary>
+    ///     TODO actually used in CopyOAM()
+    /// </summary>
+    public byte Pad;
+
+    /// <summary>
+    ///     Current time
+    /// </summary>
     public ushort Ticks;
 }
 
