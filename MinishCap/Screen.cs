@@ -18,8 +18,9 @@ public struct LcdControls {
 }
 
 public struct BgSettings {
-    public ushort Control, XOffset, YOffset,
-        Updated;
+    public ushort Control, XOffset, YOffset;
+
+    public bool Updated;
 
     public Memory<ushort> SubTilemap;
 }

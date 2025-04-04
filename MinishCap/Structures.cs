@@ -1,4 +1,5 @@
 ﻿using MinishCap.Enums;
+using MinishCap.Extensions;
 using MinishCap.Helpers;
 using System.Runtime.InteropServices;
 
@@ -112,31 +113,23 @@ public unsafe struct Token {
     private byte _unk;
 
     public byte Unk00 {
-        readonly get => (byte)((_unk & 0b1000_0000) >>> 7);
-        set {
-            _unk = (byte)((_unk & 0b0111_1111) | ((value & 1) << 7));
-        }
+        readonly get => _unk.GetBits(7, 1);
+        set => _unk = _unk.SetBits(value, 7, 1);
     }
 
     public byte Unk01 {
-        readonly get => (byte)((_unk & 0b0111_1000) >>> 3);
-        set {
-            _unk = (byte)((_unk & 0b1000_0111) | ((value & 0b1111) << 3));
-        }
+        readonly get => _unk.GetBits(3, 4);
+        set => _unk = _unk.SetBits(value, 3, 4);
     }
 
     public byte Unk05 {
-        readonly get => (byte)((_unk & 0b110) >>> 1);
-        set {
-            _unk = (byte)((_unk & 0b1111_1001) | ((value & 0b11) << 1));
-        }
+        readonly get => _unk.GetBits(1, 2);
+        set => _unk = _unk.SetBits(value, 1, 2);
     }
 
     public byte Unk06 {
-        readonly get => (byte)(_unk & 1);
-        set {
-            _unk = (byte)((_unk & 0b1111_1110) | (value & 1));
-        }
+        readonly get => _unk.GetBits(0, 1);
+        set => _unk = _unk.SetBits(value, 0, 1);
     }
 
     /// <summary>
@@ -164,37 +157,28 @@ public unsafe struct Token {
     public fixed ulong Buf[8];
 }
 
-public struct WStruct {
+public unsafe struct WStruct {
     private byte _unk;
 
     public byte Unk00 {
-        readonly get => (byte)((_unk & 0b1000_0000) >>> 7);
-        set {
-            _unk = (byte)((_unk & 0b0111_1111) | ((value & 1) << 7));
-        }
+        readonly get => _unk.GetBits(7, 1);
+        set => _unk = _unk.SetBits(value, 7, 1);
     }
 
     public byte Unk01 {
-        readonly get => (byte)((_unk & 0b0111_0000) >>> 4);
-        set {
-            _unk = (byte)((_unk & 0b1000_1111) | ((value & 0b111) << 4));
-        }
+        readonly get => _unk.GetBits(4, 3);
+        set => _unk = _unk.SetBits(value, 4, 3);
     }
 
     public byte Unk04 {
-        readonly get => (byte)(_unk & 0b1111);
-        set {
-            _unk = (byte)((_unk & 0b1111_0000) | (value & 0b1111));
-        }
+        readonly get => _unk.GetBits(0, 4);
+        set => _unk = _unk.SetBits(value, 0, 4);
     }
 
     public byte Unk1, CharColor, BgColor;
     public ushort Unk4, Unk6;
 
-    /// <summary>
-    ///     Pointer to void
-    /// </summary>
-    public nint Unk8;
+    public void* Unk8;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 4)]
@@ -236,4 +220,95 @@ public unsafe struct TextRender {
 
     public fixed ushort BeginTiles[4];
     public ushort _a6;
+}
+
+public struct OamData {
+    public byte Y;
+
+    private byte _unk1;
+
+    public byte AffineMode {
+        readonly get => _unk1.GetBits(6, 2);
+        set => _unk1 = _unk1.SetBits(value, 6, 2);
+    }
+
+    public byte ObjMode {
+        readonly get => _unk1.GetBits(4, 2);
+        set => _unk1 = _unk1.SetBits(value, 4, 2);
+    }
+
+    public byte Mosaic {
+        readonly get => _unk1.GetBits(3, 1);
+        set => _unk1 = _unk1.SetBits(value, 3, 1);
+    }
+
+    public byte Bpp {
+        readonly get => _unk1.GetBits(2, 1);
+        set => _unk1 = _unk1.SetBits(value, 2, 1);
+    }
+
+    public byte Shape {
+        readonly get => _unk1.GetBits(0, 2);
+        set => _unk1 = _unk1.SetBits(value, 0, 2);
+    }
+
+    private ushort _unk2;
+
+    public ushort X {
+        readonly get => _unk2.GetBits(7, 9);
+        set => _unk2 = _unk2.SetBits(value, 7, 9);
+    }
+
+    /// <summary>
+    ///     Bits 3/4 are h-flip/v-flip if not in affine mode
+    /// </summary>
+    public ushort MatrixNum {
+        readonly get => _unk2.GetBits(2, 5);
+        set => _unk2 = _unk2.SetBits(value, 2, 5);
+    }
+
+    public ushort Size {
+        readonly get => _unk2.GetBits(0, 2);
+        set => _unk2 = _unk2.SetBits(value, 0, 2);
+    }
+
+    private ushort _unk3;
+
+    public ushort TileNum {
+        readonly get => _unk3.GetBits(6, 10);
+        set => _unk3 = _unk3.SetBits(value, 6, 10);
+    }
+
+    public ushort Priority {
+        readonly get => _unk3.GetBits(4, 2);
+        set => _unk3 = _unk3.SetBits(value, 4, 2);
+    }
+
+    public ushort PaletteNum {
+        readonly get => _unk3.GetBits(0, 4);
+        set => _unk3 = _unk3.SetBits(value, 0, 4);
+    }
+
+    public ushort AffineParam;
+}
+
+public struct OamObj {
+    public byte Unk0, Unk1;
+    public ushort Unk2;
+    public byte Unk4, Unk5, Unk6, Unk7;
+}
+
+public class OamControls {
+    public byte Field0x0, Field0x1, SpritesOffset,
+        Updated;
+
+    public ushort _4, _6;
+
+    public byte[] Arr0 = new byte[0x18];
+
+    public OamData[] Oam = new OamData[0x80];
+
+    public OamObj[] Unk = new OamObj[0xA0];
+
+    public OamControls() { }
 }

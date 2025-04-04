@@ -1,4 +1,7 @@
-﻿namespace MinishCap;
+﻿using MinishCap.Extensions;
+using MinishCap.Structures;
+
+namespace MinishCap;
 
 public static class Common {
     public static void DisplayReset(bool refresh) {
@@ -12,11 +15,22 @@ public static class Common {
 
         // Clear 32 bytes at 0x600C000 (VRAM)
         Array.Clear(Buffers.BG0);
-        Globals.Screen.Bg0.Updated = 0;
+        Globals.Screen.Bg0.Updated = refresh;
     }
 
     private static void ClearOAM() {
+        var oamData = Globals.OamControls.Oam.AsSpanOf<OamData, ushort>();
+        var oam = Buffers.Oam.AsSpanOf<byte, ushort>();
 
+        int ind = 0;
+
+        // Reset first 2 bytes of each OAM object
+        for (int i = 0; i < 128; ++i) {
+            oamData[ind] = 0x2A0;
+            oam[ind] = 0x2A0;
+
+            ind += 4;
+        }
     }
 
     private static void ResetScreenRegs() {

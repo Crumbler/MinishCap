@@ -28,4 +28,5 @@ public static class Globals {
 
     public static ScreenData Screen;
     public static OAMCommand OamCmd;
+    public static OamControls OamControls = new();
 }
