@@ -27,6 +27,8 @@ public static class Main {
     }
 
     public static void AgbLoad() {
+        Rom.Load();
+
         InitOverlays();
         Save.InitSaveData();
         InitSaveHeader();
@@ -35,6 +37,7 @@ public static class Main {
         Globals.Unk02000010.Field0x4 = 0xC1;
 
         Fade.InitFade();
+        // Copy from Palette RAM to Palette buffer?
         Fade.SetBrightness(1);
         Messages.MessageInitialize();
         Globals.Rand = 0x1234567;
@@ -45,6 +48,9 @@ public static class Main {
     public static void AgbUpdate() {
         Globals.Main.Ticks++;
         HandleCurrentTask();
+        Messages.MessageMain();
+        Fade.FadeMain();
+        // AudioMain();
     }
 
     public static void AgbRender() {
@@ -107,6 +113,10 @@ public static class Main {
     }
 
     private static void HandleCurrentTask() {
-
+        switch (Globals.Main.CurrentTask) {
+            case Tasks.Title:
+                Title.TitleTask();
+                break;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using MinishCap.Helpers;
 using MinishCap.Structures;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace MinishCap;

@@ -13,4 +13,8 @@ public static class Fade {
         Globals.SaveHeader.Brightness = brightness;
         Globals.UsedPalettes = 0xFFFFFFFF;
     }
+
+    public static void FadeMain() {
+
+    }
 }

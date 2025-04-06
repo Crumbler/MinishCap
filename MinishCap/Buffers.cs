@@ -7,4 +7,6 @@ public static class Buffers {
         BG3 = new ushort[0x800];
 
     public static byte[] Oam = new byte[0x400];
+
+    public static byte[] Palette = new byte[0x200];
 }

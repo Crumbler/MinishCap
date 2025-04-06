@@ -17,4 +17,8 @@ public static class Messages {
         NewWindow = new();
         StructHelper.AsByteSpan(ref Globals.Unk02000040)[..4].Clear();
     }
+
+    public static void MessageMain() {
+
+    }
 }

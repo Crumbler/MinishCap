@@ -1,5 +1,10 @@
 ﻿namespace MinishCap.Enums;
 
 public enum Tasks {
-    Title
+    Title,
+    FileSelect,
+    Game,
+    GameOver,
+    Staffroll,
+    Debug
 }

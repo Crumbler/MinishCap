@@ -1,6 +1,7 @@
 ﻿using MinishCap.Enums;
 using MinishCap.Extensions;
 using MinishCap.Helpers;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace MinishCap.Structures;
@@ -311,4 +312,45 @@ public class OamControls {
     public OamObj[] Unk = new OamObj[0xA0];
 
     public OamControls() { }
+}
+
+public unsafe class UI {
+    public byte NextToLoad, _1, LastState, Field0x3,
+        State, Field0x5;
+
+    /// <summary>
+    ///     Used in Subtask_FadeOut to determine the loadGfx parameter of RestoreGameTask.
+    /// </summary>
+    public bool LoadGfxOnRestore;
+
+    public byte PauseFadeIn;
+    public ushort FadeType, FadeInTime;
+    public byte ControlMode, UnkD, UnkE, UnkF;
+    public void** CurrentRoomProperties;
+    public BgSettings* MapBottomBgSettings, MapTopBgSettings;
+    // RoomControls
+    // GfxSlotList
+    // Palettes
+    public byte[] Unk2a8 = new byte[0x100];
+    // ActiveScriptInfo
+}
+
+public struct RoomControls {
+
+}
+
+public struct GfxSlotList {
+
+}
+
+public struct Palette {
+
+}
+
+public struct ActiveScriptInfo {
+
+}
+
+public struct Entity {
+
 }

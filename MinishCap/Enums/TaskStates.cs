@@ -1,5 +1,7 @@
 ﻿namespace MinishCap.Enums;
 
 public enum TaskStates {
-    Transition
+    Transition,
+    Init,
+    Main
 }
