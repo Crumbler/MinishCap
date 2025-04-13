@@ -15,4 +15,6 @@ public static class Constants {
     ///     'FleD' in ASCII
     /// </summary>
     public const int DeletedFileSignature = 1181508932;
+
+    public const int MaxGfxSlots = 44;
 }
