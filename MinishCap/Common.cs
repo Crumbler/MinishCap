@@ -46,4 +46,16 @@ public static class Common {
         Globals.Screen.Lcd.DisplayControl = 0x140;
         Globals.Screen.Lcd.DisplayControlMask = 0xFFFF;
     }
+
+    public static void Sub0801E1EC(uint a1, uint a2, uint a3) {
+        // Do stuff
+    }
+
+    public static void Sub0801E104() {
+        unchecked {
+            Globals.Screen.Lcd.DisplayControl &= (ushort)~0x6000;
+        }
+
+        Globals.Screen.VBlankDMA.Ready = false;
+    }
 }

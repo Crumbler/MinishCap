@@ -30,6 +30,7 @@ public static class Main {
         Rom.Load();
 
         InitOverlays();
+        InitDma();
         Save.InitSaveData();
         InitSaveHeader();
         Save.Flush();
@@ -51,6 +52,7 @@ public static class Main {
         Messages.MessageMain();
         Fade.FadeMain();
         // AudioMain();
+        Interrupts.WaitForNextFrame();
     }
 
     public static void AgbRender() {
@@ -59,6 +61,11 @@ public static class Main {
 
     private static void InitOverlays() {
         Common.DisplayReset(false);
+    }
+
+    private static void InitDma() {
+        Globals.Screen.VBlankDMA.ReadyBackup = Globals.Screen.VBlankDMA.Ready;
+        Globals.Screen.VBlankDMA.Ready = false;
     }
 
     private static void InitSaveHeader() {

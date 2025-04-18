@@ -3,6 +3,12 @@
 namespace MinishCap;
 
 public static class Title {
+    private enum AdvanceState {
+        None,
+        TimerExpired,
+        KeyPressed
+    }
+
     private class IntroStateClass {
         public int Filler0;
         public byte Language, State, SubState;
@@ -52,11 +58,54 @@ public static class Title {
     private static void AdvanceIntroSequence(int transition) {
         Globals.UI.LastState = (byte)transition;
         Globals.Main.CurrentTaskState = TaskStates.Main;
-
+        IntroState = new();
+        Fade.SetFade(FadeType.InOut | FadeType.BlackWhite | FadeType.Instant, 8);
     }
 
     private static void HandleNintendoCapcomLogos() {
+        var advance = GetAdvanceState();
 
+        if (advance == AdvanceState.None) {
+            Common.DisplayReset(true);
+
+            IntroState.State = 1;
+            IntroState.Timer = 120;
+            // LoadGfxGroup 16
+            // LoadGfxGroup 1
+        } else if (advance == AdvanceState.TimerExpired) {
+            advance = AdvanceState.KeyPressed;
+        }
+
+        if (advance == AdvanceState.KeyPressed) {
+            Globals.Unk02000010.ListenForKeyPresses = true;
+            AdvanceIntroSequence(1);
+        }
+    }
+
+    private static AdvanceState GetAdvanceState() {
+        if (Globals.FadeControl.Active) {
+            return AdvanceState.None;
+        }
+
+        bool newKeys;
+
+        if (!Globals.Unk02000010.ListenForKeyPresses) {
+            newKeys = false;
+        } else {
+            newKeys = false;
+        }
+
+        IntroState.Timer--;
+
+        if (IntroState.Timer == 0) {
+            return AdvanceState.TimerExpired;
+        }
+
+        if (newKeys) {
+            return AdvanceState.KeyPressed;
+        }
+
+        return AdvanceState.None;
     }
 
     private static void HandleTitleScreen() {

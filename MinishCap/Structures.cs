@@ -43,7 +43,7 @@ public struct StructMain {
 public unsafe struct Struct02000010 {
     public int Signature;
     public byte Field0x4;
-    public byte ListenForKeyPresses;
+    public bool ListenForKeyPresses;
     public byte Field0x6;
     public byte Field0x7;
     public fixed byte Padding[24];
@@ -87,7 +87,8 @@ public struct FadeControl {
     ///     LSB = foreground, MSB = background.
     /// </summary>
     public uint Mask;
-    public ushort Type, Speed, Progress;
+    public FadeType Type;
+    public ushort Speed, Progress;
 
     /// <summary>
     ///     Fade progress to sustain
@@ -292,10 +293,22 @@ public struct OamData {
     public ushort AffineParam;
 }
 
+public struct ObjAffineSourceData {
+    public short XScale, YScale;
+
+    /// <summary>
+    ///     Upper 8 bits for CCW angle, lower 8 bits are ignored
+    /// </summary>
+    public ushort Rotation;
+
+    private ushort _padding;
+}
+
 public struct OamObj {
     public byte Unk0, Unk1;
     public ushort Unk2;
-    public byte Unk4, Unk5, Unk6, Unk7;
+    public byte Unk4, Unk5, Unk6;
+    public bool Unk7;
 }
 
 public class OamControls {
@@ -309,8 +322,6 @@ public class OamControls {
     public OamData[] Oam = new OamData[0x80];
 
     public OamObj[] Unk = new OamObj[0xA0];
-
-    public OamControls() { }
 }
 
 public unsafe struct GfxSlot {
